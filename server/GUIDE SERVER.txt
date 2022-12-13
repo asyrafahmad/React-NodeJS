@@ -1,0 +1,9 @@
+Guide
+
+1. npm init --yes                                               = initiate package.json
+2. npm install express                                          = for Rest API using NodeJS
+3. npm install cors                                             = to connect front end (react) with backend (typescript)
+4. npm instal mysql2/mongodb                                    = mysql2 (good for javascript intervention)
+5. npm install nodemon                                          = for automtically run server if got changes  
+6. npm install sequelize                                        =
+7. npm install sequelize-cli                                    =
