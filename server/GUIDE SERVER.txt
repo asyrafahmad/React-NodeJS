@@ -5,5 +5,6 @@ Guide
 3. npm install cors                                             = to connect front end (react) with backend (typescript)
 4. npm instal mysql2/mongodb                                    = mysql2 (good for javascript intervention)
 5. npm install nodemon                                          = for automtically run server if got changes  
-6. npm install sequelize                                        =
-7. npm install sequelize-cli                                    =
+6. npm install sequelize                                        = to install sequelize package (database connection)
+7. npm install sequelize-cli                                    = to install sequelize cli
+8. npx sequelize-cli init                                       = to initiate sequelize (config, migration, model)
