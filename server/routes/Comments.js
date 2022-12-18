@@ -2,15 +2,6 @@ const express = require('express')
 const router = express.Router()
 const { Comments } = require('../models')
 
-router.get("/", async (req,res) => {
-    try {
-        const listOfPosts = await Posts.findAll()
-        res.json(listOfPosts)
-    } catch (error) {
-        console.log(error)
-    }
-})
-
 router.get('/:postId', async (req, res) => {
     const postId = req.params.postId
     const comments = await Comments.findAll({
