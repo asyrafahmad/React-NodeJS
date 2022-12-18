@@ -7,4 +7,12 @@ Guide
 5. npm install yup                                              = for input validation
 
 Shortcut
-- rfc
+- rfce
+
+
+
+*******************************************************************************************************************
+Innovation
+
+OLD                                             NEW
+useHistory()                                    useNavigate()
