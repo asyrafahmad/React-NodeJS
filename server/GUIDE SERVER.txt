@@ -8,6 +8,7 @@ Guide
 6. npm install sequelize                                        = to install sequelize package (database connection)
 7. npm install sequelize-cli                                    = to install sequelize cli
 8. npx sequelize-cli init                                       = to initiate sequelize (config, migration, model)
+9. npm install bcrypt
 
 create folder
 1. routes
