@@ -6,8 +6,8 @@ import axios from "axios";
 function Registration() {
 
     const initialValues = {
-        username: "1st username",
-        password: "1st password",
+        username: "",
+        password: "",
     }
     
     const validationSchema = Yup.object().shape({
@@ -29,7 +29,7 @@ function Registration() {
                     <label>Username :</label> 
                     <Field 
                         autoComplete="off"
-                        id="inputCreateRegistration" 
+                        id="inputUsername" 
                         name="username"
                         placeholder="Username"
                     />
@@ -40,7 +40,7 @@ function Registration() {
                     <Field 
                         autoComplete="off"
                         type="password"
-                        id="inputCreateRegistration" 
+                        id="inputPassword" 
                         name="password" 
                         placeholder="Password"
                     />

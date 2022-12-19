@@ -1,11 +1,12 @@
-import React,{useHistory} from 'react'
+import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup';
 import axios from "axios"; 
+import { useNavigate } from 'react-router-dom'
 
 function CreatePost() {
     
-    let history = useHistory();
+    let history = useNavigate();
 
     const initialValues = {
         title: "1st title",
