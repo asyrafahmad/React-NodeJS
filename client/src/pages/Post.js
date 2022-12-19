@@ -19,7 +19,7 @@ function Post() {
             setComments(response.data);
             console.log(response)
         })
-    }, []);
+    }, [id]);
 
     const addComment = () => {
         axios
