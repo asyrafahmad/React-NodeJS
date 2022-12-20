@@ -8,7 +8,14 @@ Guide
 6. npm install sequelize                                        = to install sequelize package (database connection)
 7. npm install sequelize-cli                                    = to install sequelize cli
 8. npx sequelize-cli init                                       = to initiate sequelize (config, migration, model)
-9. npm install bcrypt
+9. npm install bcrypt                                           = for password encryption
+10.npm install jsonwebtoken                                     = for user session token using JWToken
+
+
+
+
+Note
+1. JWT Token can be store in (Session Storage / Cookies (Secure) )
 
 create folder
 1. routes

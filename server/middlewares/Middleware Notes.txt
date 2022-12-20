@@ -1,0 +1,29 @@
+Types of middleware in Node.js
+1. Application-level middleware
+In the application-level middleware, we consider an authentication middleware and how it can be created. 
+When the user is not authenticated, it will not be possible to call the mentioned routes. 
+When it is necessary to build an authentication for every GET, POST call, the development of an authentication middleware will follow.
+
+When you receive the authentication request, the authentication middleware makes progress towards the authentication code logic that is available inside it. 
+Once the authentication is successful, the rest of the route can be called using the next function. 
+However, when it fails, you may not be able to perform the next route as the middleware will show errors.
+
+2. Router-level middleware
+Router-level middleware is almost like the application-level middleware and works in the same way. 
+The difference is that it can generate and limit an instance using the Express.Router() function. 
+You can make use of the router.use() and router.METHOD() functions to load router-level middleware.
+
+3. Build-in middleware
+The build-in middleware doesn't depend on the ‘Connect’ function and unlike the previous 4.X version types, Express now acts as a module. 
+Generally, under the Express types of middleware, you can utilize these listed middleware functions:
+
+4. Error-handling middleware
+Express.js is capable of handling any default errors and can also define error-handling middleware functions, which are similar to the other middleware functions. 
+The major difference is the error-handling functions.
+
+5. Third-party middleware
+Sometimes, you will need to have some additional features in the backend operations. 
+For that, you can install the Node.js module for the specific function and then apply the same to your application (either on the application or router level).
+
+json - a function that computes the incoming request by adding JSON payloads
+static - a function that acts as a static asset to the application.
