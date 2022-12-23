@@ -25,11 +25,11 @@ function Login() {
             setAuthState(true)
           }
 
-          
+          // navigate.push("/")
           const buttonHandlerpush = () => {
             navigate.push("/")
           }
-          
+
           console.log(response.data)
         }
       })

@@ -1,27 +1,36 @@
 const express = require('express')
 const router = express.Router()
-const { Posts } = require('../models')
+const { Posts, Likes } = require('../models')
 
 router.get("/", async (req,res) => {
     try {
-        const listOfPosts = await Posts.findAll()
+        const listOfPosts = await Posts.findAll({include: [Likes] })
         res.json(listOfPosts)
     } catch (error) {
-        console.log({error: error, message: "List of posts error"})
+        console.log({error: error, message: "ERROR ! List of posts"})
     }
 })
 
 router.get('/byId/:id', async (req, res) => {
     const id = req.params.id
-    const post = await Posts.findByPk(id)
-
-    res.json(post);
+   
+    try {
+        const post = await Posts.findByPk(id)
+        res.json(post);
+    } catch (error) {
+        console.log({error: error, message: "ERROR ! Post by ID"})
+    }
 })
 
 router.post("/", async (req,res) => {
     const post = req.body
-    await Posts.create(post)
-    res.json(post)  
+    
+    try {
+        await Posts.create(post)
+        res.json(post)  
+    } catch (error) {
+        console.log({error: error, message: "ERROR ! Create new post"})
+    }
 })
 
 module.exports = router
