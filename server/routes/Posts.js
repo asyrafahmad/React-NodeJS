@@ -7,7 +7,7 @@ router.get("/", async (req,res) => {
         const listOfPosts = await Posts.findAll()
         res.json(listOfPosts)
     } catch (error) {
-        console.log(error)
+        console.log({error: error, message: "List of posts error"})
     }
 })
 

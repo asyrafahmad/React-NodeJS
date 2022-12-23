@@ -16,3 +16,7 @@ Innovation
 
 OLD                                             NEW
 useHistory()                                    useNavigate()
+
+
+*******************************************************************************************************************
+1. create helpers and createContext
