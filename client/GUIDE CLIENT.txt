@@ -20,6 +20,7 @@ Innovation
 OLD                                             NEW                                 VERSION
 useHistory()                                    useNavigate()
 navigate.push("/")                              navigate("/")                       React Router V6
+component                                       element
 
 *******************************************************************************************************************
 1. create helpers and createContext
