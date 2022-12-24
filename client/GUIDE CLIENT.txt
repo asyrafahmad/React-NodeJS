@@ -5,6 +5,9 @@ Guide
 3. npm install react-router-dom                                 = to use react routing
 4. npm install formik                                           = to create form
 5. npm install yup                                              = for input validation
+6. npm install @material-ui/core                                = add UI
+7. npm install @material-ui/icons                               = add icons
+
 
 Shortcut
 - rfce

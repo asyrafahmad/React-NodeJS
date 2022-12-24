@@ -19,16 +19,8 @@ function Login() {
           alert(response.data.error)
         }else {
           localStorage.setItem("accessToken", response.data.Token)
-
-          // setAuthState(true)
-          const buttonHandler = () => {
-            setAuthState(true)
-          }
-
-          // navigate.push("/")
-          const buttonHandlerpush = () => {
-            navigate.push("/")
-          }
+          setAuthState(true)
+          navigate.push("/")
 
           console.log(response.data)
         }

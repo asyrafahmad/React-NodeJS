@@ -9,11 +9,11 @@ router.post("/", validateToken, async (req, res) => {
     const { PostId } = req.body
     const UserId = req.user.validToken.id
 
-    const found = await Likes.findOne({where: {PostId: PostId, UserId: UserId}})
+    const found = await Likes.findOne({where: {PostId: PostId, UserId: UserId}})            // get specific user with condition (PostId, UserId)
 
     if (!found) {       // like comment
         await Likes.create({PostId: PostId, UserId: UserId})
-        res.json("Like The Post")
+        res.json({liked : true})
     } else {            // unlike comment
         await Likes.destroy({
             where: {
@@ -21,7 +21,7 @@ router.post("/", validateToken, async (req, res) => {
                 UserId: UserId
             }
         })
-        res.json("Unlike The Post")
+        res.json({liked : false})
     }
 
 })

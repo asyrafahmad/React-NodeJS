@@ -37,7 +37,7 @@ function App() {
 
         // console.log(response)
       });
-  }, [])
+  }, [setAuthState])
 
   return (
     <div className="App">

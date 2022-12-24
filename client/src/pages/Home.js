@@ -3,16 +3,26 @@ import axios from "axios";
 import {useEffect, useState} from "react"; 
 import { useNavigate } from 'react-router-dom'
 
+/* import icon */
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+
 function Home() {
 
-    const [listOfPosts, setListOfPosts] = useState([]);
+    const [viewListOfPosts, setListOfPosts] = useState([]);
+    const [viewLikedPosts, setLikedPosts] = useState([])
+
     let navigate = useNavigate()
 
     useEffect(() => {
-        axios.get(
-            "http://localhost:3001/posts"
-        ).then((response) => {
-            setListOfPosts(response.data);
+        axios
+        .get("http://localhost:3001/posts", { 
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            },
+        }).then((response) => {
+            setListOfPosts(response.data.listOfPosts);
+            setLikedPosts(response.data.likedPosts.map((like) => {return like.PostId}));
+            console.log(viewLikedPosts)
         }).catch((error) => {
             console.log("ERROR ! Get all post")
         })
@@ -26,31 +36,47 @@ function Home() {
                 accessToken: localStorage.getItem("accessToken")
             }}
         ).then((response) => {
-            alert(response.data)
-            setListOfPosts(listOfPosts.map((post) => {
+            setListOfPosts(viewListOfPosts.map((post) => {
                 if(post.id === postId) {
-                    return {...post, Likes: [post.Likes, 0] }   // already liked
+                    if (response.data.liked){
+                        return {...post, Likes: [post.Likes, 0] }   // already liked
+                    } else {
+                        const likesArray = post.Likes;
+                        likesArray.pop()
+                        return {...post, Likes: likesArray }        // remove like in last array
+                    }
                 } else {
-                    const likesArray = post.Likes;
-                    likesArray.pop()
-                    return {...post, Likes: likesArray }        // remove like in last array
+                   return post
                 }
             }))
         }).catch((error) => {
             console.log("ERROR ! To like the post")
         })
+
+        if (viewLikedPosts.includes(postId)) {          // remove like
+            setLikedPosts(
+                viewLikedPosts.filter((id) => {
+                    return id != postId
+                })
+            )
+        } else {                                        // add like 
+            setLikedPosts([...viewLikedPosts, postId])
+        }
     }
 
   return (
     <div>
-        {listOfPosts.map((value,key) => {
+        {viewListOfPosts.map((value,key) => {
             return (
-                <div key={key} className="post" > 
-                    <div className="title"> {value.title} </div>
-                    <div className="body" onClick={ () => {navigate(`/post/${value.id}`)} }> {value.postText} </div>
+                <div key={key} className="post" > <br/>
+                    <div className="title"> Comment Title : {value.title} </div>
+                    <div className="body" onClick={ () => {navigate(`/post/${value.id}`)} }> Comment Text : {value.postText} </div>
                     <div className="footer">
-                        {value.username}{" "}
-                        <button onClick={ () => {likeAPost(value.id)}}> {" "}Like</button> 
+                        Comment by : {value.username} {" "}
+                        <ThumbUpAltIcon 
+                            onClick={ () => {likeAPost(value.id)}} 
+                            className = {likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"}
+                        />
                         <label> {value.Likes.length} </label>
                     </div>
                 </div>
