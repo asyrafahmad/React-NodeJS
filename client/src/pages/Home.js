@@ -22,7 +22,6 @@ function Home() {
         }).then((response) => {
             setListOfPosts(response.data.listOfPosts);
             setLikedPosts(response.data.likedPosts.map((like) => {return like.PostId}));
-            console.log(viewLikedPosts)
         }).catch((error) => {
             console.log("ERROR ! Get all post")
         })
@@ -56,7 +55,7 @@ function Home() {
         if (viewLikedPosts.includes(postId)) {          // remove like
             setLikedPosts(
                 viewLikedPosts.filter((id) => {
-                    return id != postId
+                    return id !== postId
                 })
             )
         } else {                                        // add like 
@@ -75,7 +74,7 @@ function Home() {
                         Comment by : {value.username} {" "}
                         <ThumbUpAltIcon 
                             onClick={ () => {likeAPost(value.id)}} 
-                            className = {likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"}
+                            // className = { likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"}
                         />
                         <label> {value.Likes.length} </label>
                     </div>
