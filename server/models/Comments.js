@@ -11,5 +11,13 @@ module.exports = (sequelize, DataTypes) => {
         },
     })
 
+    Comments.associate = (models) => {
+        Comments.belongsTo(models.Posts, {
+            as: 'Posts', 
+            foreignKey: 'PostId',
+            onDelete: "cascade"
+        })
+    }
+
     return Comments
 }

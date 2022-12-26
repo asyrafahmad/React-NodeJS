@@ -17,12 +17,20 @@ module.exports = (sequelize, DataTypes) => {
 
     Posts.associate = (models) => {
         Posts.hasMany(models.Comments, {
+            // as: 'Comments', 
+            // foreignKey: 'PostId',
             onDelete: "cascade"
         })
-    }
 
-    Posts.associate = (models) => {
         Posts.hasMany(models.Likes, {
+            // as: 'Likes', 
+            // foreignKey: 'PostId',
+            onDelete: "cascade"
+        })
+
+        Posts.belongsTo(models.Users, {
+            as: 'Users', 
+            foreignKey: 'UserId',
             onDelete: "cascade"
         })
     }

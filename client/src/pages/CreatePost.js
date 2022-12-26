@@ -1,28 +1,43 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import * as Yup from 'yup';
 import axios from "axios"; 
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../helpers/AuthContext'
 
 function CreatePost() {
     
-    let history = useNavigate();
+    const { authState } = useContext(AuthContext)
+    
+    let navigate = useNavigate();
 
     const initialValues = {
-        title: "1st title",
-        postText: "1st postText",
-        username: "1st username",
+        title: "",
+        postText: "",
     }
+
+    // useEffect(() => {
+    //     if (!authState.status) {
+    //         navigate("/login")
+    //     } 
+    // }, [])
     
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Please fill in the title field'),
         postText: Yup.string().required(),
-        username: Yup.string().min(3).max(15).required()
     })
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:3001/posts", data).then((response) => {
-            history.push("/")                                                                   // redirect to home page after create new post
+
+        axios
+        .post("http://localhost:3001/posts",
+            data,
+            { headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        })
+        .then((response) => {
+            navigate("/")                                                                  // redirect to home page after create new post
             console.log(data)
         })
 
@@ -34,6 +49,7 @@ function CreatePost() {
         <div className="createPostPage">
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                 <Form className="formContainer">
+                    <h1> Create A Post</h1>
                     <br/>
                     <label>Title :</label> 
                     <Field 
@@ -54,16 +70,6 @@ function CreatePost() {
                         placeholder="(Eg: Post...)"
                     ></Field>
                     <ErrorMessage name="postText" component="span" />
-                    <br/>
-                    <br/>
-                    <label>Username :</label> 
-                    <Field 
-                        autoComplete="off"
-                        id="inputCreatePost3" 
-                        name="username" 
-                        placeholder="(Eg: John123...)"
-                    ></Field>
-                    <ErrorMessage name="username" component="span" />
                     <br/>
                     <br/>
                     <button type="submit">Submit</button>

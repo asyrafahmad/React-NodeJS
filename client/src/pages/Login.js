@@ -19,8 +19,12 @@ function Login() {
           alert(response.data.error)
         }else {
           localStorage.setItem("accessToken", response.data.Token)
-          setAuthState(true)
-          navigate.push("/")
+          setAuthState({
+            username: response.data.username,
+            id: response.data.id,
+            status: true
+          })
+          navigate("/")
 
           console.log(response.data)
         }

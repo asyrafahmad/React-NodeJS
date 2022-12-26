@@ -1,30 +1,40 @@
 import React from 'react'
 import axios from "axios"; 
-import {useEffect, useState} from "react"; 
+import { useEffect, useState, useContext } from "react"; 
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../helpers/AuthContext'
 
 /* import icon */
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 
 function Home() {
 
-    const [viewListOfPosts, setListOfPosts] = useState([]);
+    const [viewListOfPosts, setListOfPosts] = useState([])
     const [viewLikedPosts, setLikedPosts] = useState([])
+    const { authState } = useContext(AuthContext)
 
     let navigate = useNavigate()
 
     useEffect(() => {
-        axios
-        .get("http://localhost:3001/posts", { 
-            headers: {
-                accessToken: localStorage.getItem("accessToken")
-            },
-        }).then((response) => {
-            setListOfPosts(response.data.listOfPosts);
-            setLikedPosts(response.data.likedPosts.map((like) => {return like.PostId}));
-        }).catch((error) => {
-            console.log("ERROR ! Get all post")
-        })
+
+        // if (authState.status) {
+        //     navigate("/login")
+        // } else {
+            axios
+            .get("http://localhost:3001/posts", { 
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                },
+            }).then((response) => {
+                setListOfPosts(response.data.listOfPosts);
+                setLikedPosts(response.data.likedPosts.map((like) => {return like.PostId}));
+            }).catch((error) => {
+                setListOfPosts([])
+                setLikedPosts([])
+                console.log("ERROR ! Get all post")
+            })
+        // }
+
     }, [])
 
     const likeAPost = (postId) => {
@@ -74,7 +84,7 @@ function Home() {
                         Comment by : {value.username} {" "}
                         <ThumbUpAltIcon 
                             onClick={ () => {likeAPost(value.id)}} 
-                            // className = { likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"}
+                            // className = { viewLikedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"}
                         />
                         <label> {value.Likes.length} </label>
                     </div>
